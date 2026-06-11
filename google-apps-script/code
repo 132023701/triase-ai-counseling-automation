@@ -1,0 +1,20 @@
+function kirimKe_n8n(e) {
+  var form = FormApp.getActiveForm();
+  var allResponses = form.getResponses();
+  var latestResponse = allResponses[allResponses.length - 1];
+  var response = latestResponse.getItemResponses();
+  
+  var dataKeluhan = {};
+  for (var i = 0; i < response.length; i++) {
+    dataKeluhan[response[i].getItem().getTitle()] = response[i].getResponse();
+  }
+  
+  var options = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    'payload' : JSON.stringify(dataKeluhan)
+  };
+  
+  // GANTI TEKS DI BAWAH INI DENGAN URL-MU
+  UrlFetchApp.fetch('https://crazy-vertebrae-catnip.ngrok-free.dev/webhook-test/triase-konseling', options);
+}
